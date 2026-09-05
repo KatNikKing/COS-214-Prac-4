@@ -1,8 +1,8 @@
 #include "EmergencyCondition.h"
 
-EmergencyCondition::~EmergencyCondition(*Emergency emergency)
+EmergencyCondition::~EmergencyCondition(*Emergency emergency): emergency(emergency)
 {
-    this->emergency = emergency;
+    
 }
 
 EmergencyCondition::~EmergencyCondition()
