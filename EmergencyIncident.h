@@ -18,9 +18,9 @@ class EmergencyIncident : public EmergencyIncident
     public:
         EmergencyIncident(std::string, std::string, std::vector<Capability>);
         ~EmergencyIncident();
-        std::vector<Capability> getRequiredCapabilities();
-        std::string getLocation();
-        std::string getDescription();
+        std::vector<Capability> getRequiredCapabilities() override;
+        std::string getLocation() override;
+        std::string getDescription() override;
 
 
 };
