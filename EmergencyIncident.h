@@ -6,7 +6,7 @@
 #include <vector>
 
 
-class EmergencyIncident : public EmergencyIncident
+class EmergencyIncident : public Emergency
 {
     //members
     private:

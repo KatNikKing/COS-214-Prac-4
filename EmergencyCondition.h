@@ -4,7 +4,7 @@
 #include "Emergency.h"
 
 
-class EmergencyCondition : public EmergencyCondition
+class EmergencyCondition : public MedicalCondition
 {
     //members
     protected:
