@@ -4,6 +4,8 @@
 #include "State.h"
 #include "Capability.h"
 
+class Emergency;
+
 class ResponseUnit {
 protected:
     std::string name;
@@ -18,9 +20,11 @@ public:
     void performDuty();
     virtual bool isAvailable() = 0;
     virtual bool hasCapability(Capability capability, int requiredResponders = 1) = 0;
+    virtual bool canSatisfy(Emergency* emergency) = 0;
     virtual void add(ResponseUnit* unit) {}
     virtual void remove(string name) {}
-    virtual ResponseUnit* get(string name) = 0;
+    ResponseUnit* get(string name);
+    virtual void display(int level) = 0;
     virtual string toString() = 0;
 };
 

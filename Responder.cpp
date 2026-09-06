@@ -1,4 +1,5 @@
 #include "Responder.h"
+#include "Emergency.h"
 
 Responder::Responder(string name) : ResponseUnit(name) {}
 
@@ -25,24 +26,22 @@ bool Responder::hasCapability(Capability capability, int requiredResponders) {
     return false;
 }
 
-ResponseUnit* Responder::get(string name) {
-    if (this->name == name) return this;
-    return nullptr;
-}
-
-std::string roleToString(Role role) {
-    switch (role) {
-        case Role::DRIVER: return "Driver";
-        case Role::CARRIER: return "Carrier";
-        case Role::FIRST_AIDER: return "First-aider";
-        case Role::LEADER: return "Leader";
-        case Role::NAVIGATOR: return "Navigator";
-        case Role::RESPONDER: return "Responder";
+bool Responder::canSatisfy(Emergency* emergency) {
+    if (!isAvailable())
+        return false;
+    
+    for (Capability capability : emergency->getRequiredCapabilities()) {
+        if (!hasCapability(capability, 1))
+            return false;
     }
 
-    return "";
+    return true;
 }
 
+void Responder::display(int level) {
+    string tabs = string(level, '\t');
+    cout << tabs << toString() << endl;
+}
 
 string Responder::toString() {
     return "Responder Name: " + name + ", Team Role: " + roleToString(role);

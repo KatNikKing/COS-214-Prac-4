@@ -20,7 +20,7 @@ class EmergencyIncident : public Emergency
         ~EmergencyIncident();
         std::string getLocation() override;
         std::string getDescription() override;
-        int getRequiredResponders();
+        int getRequiredResponders() override;
         std::vector<Capability> getRequiredCapabilities() override;
 };
 

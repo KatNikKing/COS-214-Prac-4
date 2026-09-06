@@ -79,6 +79,21 @@ bool ResponseTeam::hasCapability(Capability capability, int requiredResponders) 
     return countCapability(capability) >= requiredResponders;
 }
 
+bool ResponseTeam::canSatisfy(Emergency* emergency) {
+    if (!isAvailable())
+        return false;
+
+    if (getHeadCount() < emergency->getRequiredResponders())
+        return false;
+
+    for (Capability capability : emergency->getRequiredCapabilities()) {
+        if (!hasCapability(capability))
+            return false;
+    }
+
+    return true;
+}
+
 void ResponseTeam::add(ResponseUnit* unit) {
     if (unit != nullptr) {
         members.push_back(unit);
@@ -100,26 +115,13 @@ void ResponseTeam::remove(string name) {
     }
 }
 
-ResponseUnit* ResponseTeam::get(string name) {
-    if (this->name == name) return this;
+void ResponseTeam::display(int level) {
+    string tabs = string(level, '\t');
+    cout << tabs << toString() << endl;
     for (ResponseUnit* member : members) {
-        ResponseUnit* unit = member->get(name);
-        if (unit != nullptr) return unit;
+        member->display(level + 1);
     }
-    return nullptr;
 }
-
-std::string teamTypeToString(TeamType teamType) {
-    switch (teamType) {
-        case TeamType::TRANSPORT: return "Transport";
-        case TeamType::MEDICAL: return "Medical";
-        case TeamType::HAZMAT: return "Hazmat";
-        case TeamType::RESCUE: return "Rescue";
-    }
-
-    return "";
-}
-
 
 string ResponseTeam::toString() {
     return "Team Name: " + name + ", Team Type: " + teamTypeToString(teamType);

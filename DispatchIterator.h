@@ -9,6 +9,12 @@
 class DispatchIterator : Iterator {
     private:
         vector<Capability> requirements;
+        void collectTeams(ResponseUnit* unit, Emergency* emergency);
+        void collectCapabilities(ResponseUnit* unit, Emergency* emergency,
+                                std::vector<Capability>& missingCapabilities,
+                                int& remaining);
+        void collectRemaining(ResponseUnit* unit, Emergency* emergency,
+                            int& remaining);
 
     public:
         DispatchIterator(ResponseUnit* organisation, Emergency* emergency);

@@ -19,8 +19,9 @@ class Responder : public ResponseUnit {
         void assignRole(Role role);
         void addCapability(Capability capability);
         bool isAvailable() override;
-        bool hasCapability(Capability capability, int requiredResponders) override;
-        ResponseUnit* get(string name) override;
+        bool hasCapability(Capability capability, int requiredResponders = 1) override;
+        bool canSatisfy(Emergency* emergency) override;
+        void display(int level) override;
         string toString() override;
 };
 

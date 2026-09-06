@@ -12,6 +12,8 @@
 using namespace std;
 
 class ResponseTeam : public ResponseUnit {
+        friend class RollCallIterator;
+        friend class DispatchIterator;
     private:
         vector<ResponseUnit*> members;
         TeamType teamType;
@@ -25,10 +27,11 @@ class ResponseTeam : public ResponseUnit {
         int getHeadCount();
         bool isAvailable() override;
         int countCapability(Capability capability);
-        bool hasCapability(Capability capability, int requiredResponders) override;
+        bool hasCapability(Capability capability, int requiredResponders = 1) override;
+        bool canSatisfy(Emergency* emergency) override;
         void add(ResponseUnit* unit) override;
         void remove(string name) override;
-        ResponseUnit* get(string name) override;
+        void display(int level) override;
         string toString() override;
         DispatchIterator* createDispatchIterator(Emergency* emergency);
         RollCallIterator* createRollCallIterator();
