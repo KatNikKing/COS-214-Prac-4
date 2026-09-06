@@ -1,21 +1,32 @@
 #include "Emergency.h"
+#include "EmergencyCondition.h"
 #include <iostream>
 
-Emergency::Emergency(const std::string& name) : ResponseUnit(name) {}
+Emergency::Emergency(const std::string& name) : ResponseUnit(name), currentCondition(nullptr) {}
 
 Emergency::~Emergency() {
     for (ResponseUnit* unit : subUnits) {
         delete unit;
     }
     subUnits.clear();
+    
+    if (currentCondition != nullptr) {
+        delete currentCondition;
+    }
 }
 
-void Emergency::processIncident() {
 
+void Emergency::setCondition(EmergencyCondition* condition) {
+    if (currentCondition != nullptr) {
+        delete currentCondition; 
+    }
+    currentCondition = condition;
 }
 
-void Emergency::addUnit(ResponseUnit* unit){
+EmergencyCondition* Emergency::getCondition() const {
+    return currentCondition;
 }
 
-void Emergency::removeUnit(ResponseUnit* unit) {
+Iterator* Emergency::createIterator() {
+    return nullptr; 
 }

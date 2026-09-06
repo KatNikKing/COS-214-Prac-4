@@ -4,6 +4,9 @@
 #include <string>
 #include <stdexcept>
 
+// Forward declaration of your teammate's Iterator
+class Iterator; 
+
 class ResponseUnit {
 protected:
     std::string unitName;
@@ -13,6 +16,8 @@ public:
     virtual ~ResponseUnit();
 
     virtual void processIncident() = 0; 
+    
+    virtual Iterator* createIterator() = 0;
 
     virtual void addUnit(ResponseUnit* unit);
     virtual void removeUnit(ResponseUnit* unit);
