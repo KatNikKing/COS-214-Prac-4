@@ -1,30 +1,20 @@
 #ifndef EMERGENCY_H
 #define EMERGENCY_H
 
-#include "ResponseUnit.h"
+#include "Capability.h"
+
+#include <iostream>
 #include <vector>
-#include <algorithm>
 
-class EmergencyCondition;
+using namespace std;
 
-class Emergency : public ResponseUnit {
-private:
-    std::vector<ResponseUnit*> subUnits;
-    EmergencyCondition* currentCondition; 
-
+class Emergency {
 public:
-    Emergency(const std::string& name);
-    ~Emergency() override;
-
-    void processIncident() override;
-    
-    void addUnit(ResponseUnit* unit) override;
-    void removeUnit(ResponseUnit* unit) override;
-
-    Iterator* createIterator() override;
-
-    void setCondition(EmergencyCondition* condition);
-    EmergencyCondition* getCondition() const;
+    virtual ~Emergency() = default;
+    virtual string getLocation() = 0;
+    virtual string getDescription() = 0;
+    virtual int getRequiredResponders() = 0;
+    virtual vector<Capability> getRequiredCapabilities() = 0;
 };
 
 #endif

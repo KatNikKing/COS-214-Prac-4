@@ -1,28 +1,27 @@
 #ifndef RESPONSE_UNIT_H
 #define RESPONSE_UNIT_H
 
-#include <string>
-#include <stdexcept>
-
-// Forward declaration of your teammate's Iterator
-class Iterator; 
+#include "State.h"
+#include "Capability.h"
 
 class ResponseUnit {
 protected:
-    std::string unitName;
+    std::string name;
+    State* state;
+
 
 public:
-    ResponseUnit(const std::string& name);
+    ResponseUnit(std::string name);
     virtual ~ResponseUnit();
-
-    virtual void processIncident() = 0; 
-    
-    virtual Iterator* createIterator() = 0;
-
-    virtual void addUnit(ResponseUnit* unit);
-    virtual void removeUnit(ResponseUnit* unit);
-
     std::string getName() const;
+    virtual void setState(State* state);
+    void performDuty();
+    virtual bool isAvailable() = 0;
+    virtual bool hasCapability(Capability capability, int requiredResponders = 1) = 0;
+    virtual void add(ResponseUnit* unit) {}
+    virtual void remove(string name) {}
+    virtual ResponseUnit* get(string name) = 0;
+    virtual string toString() = 0;
 };
 
 #endif

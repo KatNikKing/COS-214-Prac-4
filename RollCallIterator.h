@@ -2,6 +2,7 @@
 #define ROLL_CALL_ITERATOR
 
 #include "Iterator.h"
+#include "ResponseUnit.h"
 
 class RollCallIterator : public Iterator {
     public:

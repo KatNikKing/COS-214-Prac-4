@@ -1,17 +1,22 @@
 #include "ResponseUnit.h"
 
-ResponseUnit::ResponseUnit(const std::string& name) : unitName(name) {}
+ResponseUnit::ResponseUnit(std::string name) : name(name), state(nullptr) {}
 
-ResponseUnit::~ResponseUnit() {}
-
-void ResponseUnit::addUnit(ResponseUnit* unit) {
-    throw std::logic_error("can't add to leaf unit.");
-}
-
-void ResponseUnit::removeUnit(ResponseUnit* unit) {
-    throw std::logic_error("can't remove from leaf unit.");
+ResponseUnit::~ResponseUnit() {
+    delete state;
 }
 
 std::string ResponseUnit::getName() const {
-    return unitName;
+    return name;
+}
+
+void ResponseUnit::setState(State* state) {
+    this->state = state;
+}
+
+void ResponseUnit::performDuty() {
+    if (state != nullptr) {
+        cout << name << " ";
+        state->performDuty();
+    }
 }

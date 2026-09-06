@@ -10,19 +10,18 @@ class EmergencyIncident : public Emergency
 {
     //members
     private:
-        std::string location;
-        std:string description;
+        std::string location, description;
+        int requiredResponders;
         std::vector<Capability> baseCapabilities;
 
     //methods
     public:
-        EmergencyIncident(std::string, std::string, std::vector<Capability>);
+        EmergencyIncident(std::string, std::string, int, std::vector<Capability>);
         ~EmergencyIncident();
-        std::vector<Capability> getRequiredCapabilities() override;
         std::string getLocation() override;
         std::string getDescription() override;
-
-
+        int getRequiredResponders();
+        std::vector<Capability> getRequiredCapabilities() override;
 };
 
 #endif

@@ -7,8 +7,8 @@ class HazmatCondition : public EmergencyCondition
 {
     //methods
     public:
-        HazmatCondition(*Emergency);
+        HazmatCondition(Emergency*);
         std::vector<Capability> getRequiredCapabilities();
-}
+};
 
 #endif

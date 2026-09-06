@@ -7,8 +7,8 @@ class StructuralCondition : public EmergencyCondition
 {
     //methods
     public:
-        StructuralCondition(*Emergency);
+        StructuralCondition(Emergency*);
         std::vector<Capability> getRequiredCapabilities();
-}
+};
 
 #endif

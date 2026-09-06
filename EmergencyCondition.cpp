@@ -1,6 +1,6 @@
 #include "EmergencyCondition.h"
 
-EmergencyCondition::~EmergencyCondition(*Emergency emergency): emergency(emergency)
+EmergencyCondition::EmergencyCondition(Emergency* emergency): emergency(emergency)
 {
     
 }
@@ -18,4 +18,9 @@ std::string EmergencyCondition::getLocation()
 std::string EmergencyCondition::getDescription()
 {
     return emergency->getDescription();
+}
+
+int EmergencyCondition::getRequiredResponders() 
+{
+    return emergency->getRequiredResponders();
 }

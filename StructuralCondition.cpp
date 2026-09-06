@@ -1,6 +1,6 @@
 #include "StructuralCondition.h"
 
-StructuralCondition::StructuralCondition(*Emergency emergency): EmergencyCondition(emergency)
+StructuralCondition::StructuralCondition(Emergency* emergency): EmergencyCondition(emergency)
 {
     
 }

@@ -1,14 +1,13 @@
-#ifndef EMERGENCYCONDITION_H
-#define EMERGENCYCONDITION_H
+#ifndef MEDICALCONDITION_H
+#define MEDICALCONDITION_H
 
-#include  "EmergencyCondition.h"
+#include "EmergencyCondition.h"
 
 class MedicalCondition : public EmergencyCondition
 {
-    //methods
-    public:
-        MedicalCondition(*Emergency);
-        std::vector<Capability> getRequiredCapabilities();
-}
+public:
+    MedicalCondition(Emergency*);
+    std::vector<Capability> getRequiredCapabilities();
+};
 
 #endif

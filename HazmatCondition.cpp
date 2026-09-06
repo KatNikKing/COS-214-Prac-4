@@ -1,6 +1,6 @@
 #include "HazmatCondition.h"
 
-HazmatCondition::HazmatCondition(*Emergency emergency): EmergencyCondition(emergency)
+HazmatCondition::HazmatCondition(Emergency* emergency): EmergencyCondition(emergency)
 {
     
 }

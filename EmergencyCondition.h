@@ -4,7 +4,7 @@
 #include "Emergency.h"
 
 
-class EmergencyCondition : public MedicalCondition
+class EmergencyCondition : public Emergency
 {
     //members
     protected:
@@ -12,13 +12,12 @@ class EmergencyCondition : public MedicalCondition
 
     //methods
     public:
-        EmergencyCondition(*Emergency);
+        EmergencyCondition(Emergency*);
         virtual ~EmergencyCondition();
-
-        virtual std::vector<Capability> getRequiredCapabilities() = 0;
         std::string getLocation();
         std::string getDescription();
-
+        int getRequiredResponders();
+        virtual std::vector<Capability> getRequiredCapabilities() = 0;
 };
 
 #endif  

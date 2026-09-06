@@ -2,6 +2,8 @@
 #define DISPATCH_ITERATOR
 
 #include "Iterator.h"
+#include "ResponseUnit.h"
+#include "Emergency.h"
 #include "Capability.h"
 
 class DispatchIterator : Iterator {

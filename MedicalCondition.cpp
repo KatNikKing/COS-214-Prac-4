@@ -1,6 +1,6 @@
 #include "MedicalCondition.h"
 
-MedicalCondition::MedicalCondition(*Emergency emergency): EmergencyCondition(emergency)
+MedicalCondition::MedicalCondition(Emergency* emergency): EmergencyCondition(emergency)
 {
     
 }
