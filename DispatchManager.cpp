@@ -150,7 +150,7 @@ void DispatchManager::printOrganisation() {
         
     cout << "==========DISPLAYING ORGANISATION==========\n";
     organisation->display(0);
-    cout << "=============================\n";
+    cout << "===========================================\n";
 }
 
 vector<Capability> determineCapabilities(vector<ResponseUnit*> units) {

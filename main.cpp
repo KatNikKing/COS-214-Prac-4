@@ -7,6 +7,51 @@
 #include "HazmatCondition.h"
 #include "StructuralCondition.h"
 
+ResponseTeam* buildOrganisation();
+vector<Emergency*> buildEmergencies();
+
+int main() {
+    ResponseTeam* organisation = buildOrganisation();
+    vector<Emergency*> emergencies = buildEmergencies();
+
+    DispatchManager manager(organisation, "Bryedon, Eastern Quartus");
+
+    manager.runRollCall();
+    cout << endl;
+    manager.printOrganisation();
+   
+    cout << "\nPROCESSING EMERGENCIES...\n\n";
+    for (Emergency* emergency : emergencies) {
+        manager.receiveEmergency(emergency);
+        cout << "\nORGANISATION AFTER EMERGENCY:\n";
+        manager.printOrganisation();
+        cout << endl;
+    }
+
+    cout << "ORGANISATION ENTERING RECOVERY...\n";
+    organisation->setState(new Recovering(10));
+
+    cout << "RETRYING EMERGENCIES...\n";
+    for (Emergency* emergency : emergencies) {
+        manager.receiveEmergency(emergency);
+    }
+    
+    cout << "\nPROCESSING PENDING EMERGENCIES...\n";
+    manager.processPendingEmergencies();
+
+    cout << "\nNULL MANAGER TEST...\n";
+    DispatchManager emptyManager(nullptr, "");
+    emptyManager.receiveEmergency(emergencies[0]);
+
+    delete organisation;
+
+    for (Emergency* emergency : emergencies) {
+        delete emergency;
+    }
+
+    return 0;
+}
+
 ResponseTeam* buildOrganisation() {
     ResponseTeam* organisation = new ResponseTeam("Emergency Organisation", TeamType::RESCUE);
 
@@ -111,7 +156,6 @@ ResponseTeam* buildOrganisation() {
     return organisation;
 }
 
-
 vector<Emergency*> buildEmergencies()
 {
     vector<Emergency*> emergencies;
@@ -173,46 +217,4 @@ vector<Emergency*> buildEmergencies()
     emergencies.push_back(complexEmergency);
 
     return emergencies;
-}
-
-int main() {
-    ResponseTeam* organisation = buildOrganisation();
-    vector<Emergency*> emergencies = buildEmergencies();
-
-    DispatchManager manager(organisation, "Atlas City");
-
-    manager.runRollCall();
-    cout << endl;
-    manager.printOrganisation();
-   
-    cout << "\nPROCESSING EMERGENCIES...\n\n";
-    for (Emergency* emergency : emergencies) {
-        manager.receiveEmergency(emergency);
-        cout << "\nORGANISATION AFTER EMERGENCY:\n";
-        manager.printOrganisation();
-        cout << endl;
-    }
-
-    cout << "ORGANISATION ENTERING RECOVERY...\n";
-    organisation->setState(new Recovering(10));
-
-    cout << "RETRYING EMERGENCIES...\n";
-    for (Emergency* emergency : emergencies) {
-        manager.receiveEmergency(emergency);
-    }
-    
-    cout << "\nPROCESSING PENDING EMERGENCIES...\n";
-    manager.processPendingEmergencies();
-
-    cout << "\nNULL MANAGER TEST...\n";
-    DispatchManager emptyManager(nullptr, "");
-    emptyManager.receiveEmergency(emergencies[0]);
-
-    delete organisation;
-
-    for (Emergency* emergency : emergencies) {
-        delete emergency;
-    }
-
-    return 0;
 }
