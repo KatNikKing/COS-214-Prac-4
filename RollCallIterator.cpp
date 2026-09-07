@@ -1,5 +1,6 @@
 #include "RollCallIterator.h"
 #include "ResponseTeam.h"
+#include "Responder.h"
 
 RollCallIterator::RollCallIterator(ResponseUnit* organisation) {
     this->position = 0;

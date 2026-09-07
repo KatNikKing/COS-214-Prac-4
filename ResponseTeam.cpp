@@ -1,5 +1,6 @@
 #include "ResponseTeam.h"
 #include "Responder.h"
+#include "Emergency.h"
 
 ResponseTeam::ResponseTeam(string name, TeamType teamType) : ResponseUnit(name), teamType(teamType) {}
 
@@ -15,7 +16,7 @@ void ResponseTeam::setState(State* state) {
     delete this->state;
     this->state = state;
     for (ResponseUnit* member : members) {
-        member->setState(state);
+        member->setState(state->clone());
     }
 }
 
@@ -41,7 +42,7 @@ bool ResponseTeam::isAvailable() {
     for (ResponseUnit* member : members) {
         if (!member->isAvailable()) return false;
     }
-    if (dynamic_cast<Available*>(state) == nullptr) setState(new Available("unknown location"));
+    if (dynamic_cast<Available*>(state) == nullptr) setState(new Available("Unknown Location"));
     return true;
 }
 
@@ -75,6 +76,9 @@ bool ResponseTeam::hasCapability(Capability capability, int requiredResponders) 
         case Capability::RESCUE:
             if (teamType == TeamType::RESCUE && headCount >= requiredResponders) return true;
             break;
+        case Capability::NAVIGATION:
+            if (teamType == TeamType::TRANSPORT && headCount >= requiredResponders) return true;
+            break;
     }
     return countCapability(capability) >= requiredResponders;
 }
@@ -98,6 +102,22 @@ void ResponseTeam::add(ResponseUnit* unit) {
     if (unit != nullptr) {
         members.push_back(unit);
     }
+}
+
+ResponseUnit* ResponseTeam::remove(ResponseUnit* unit) {
+    for (auto it = members.begin(); it != members.end(); ++it) {
+        if (*it == unit) {
+            ResponseUnit* pop = *it;
+            members.erase(it);
+            return pop;
+        }
+
+        ResponseTeam* team = dynamic_cast<ResponseTeam*>(*it);
+        if (team != nullptr) {
+            team->remove(unit);
+        }
+    }
+    return nullptr;
 }
 
 void ResponseTeam::remove(string name) {

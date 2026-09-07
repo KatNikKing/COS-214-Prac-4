@@ -3,14 +3,11 @@
 
 #include "Emergency.h"
 
-
 class EmergencyCondition : public Emergency
 {
-    //members
     protected:
         Emergency* emergency;
 
-    //methods
     public:
         EmergencyCondition(Emergency*);
         virtual ~EmergencyCondition();

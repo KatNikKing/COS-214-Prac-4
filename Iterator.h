@@ -1,14 +1,12 @@
 #ifndef ITERATOR
 #define ITERATOR
 
-#include <vector>
-
-using namespace std;
+#include "ResponseUnit.h"
 
 class Iterator {
     protected:
         vector<ResponseUnit*> toVisit;
-        int position;
+        size_t position;
 
     public:
         virtual ~Iterator() = default;

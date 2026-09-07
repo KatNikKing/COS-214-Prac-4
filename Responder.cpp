@@ -1,5 +1,7 @@
 #include "Responder.h"
 #include "Emergency.h"
+#include "DispatchIterator.h"
+#include "RollCallIterator.h"
 
 Responder::Responder(string name) : ResponseUnit(name) {}
 
@@ -9,6 +11,10 @@ void Responder::assignRole(Role role) {
 
 void Responder::addCapability(Capability capability) {
     capabilities.push_back(capability);
+}
+
+vector<Capability> Responder::getCapabilities() {
+    return capabilities;
 }
 
 bool Responder::isAvailable() {
@@ -44,5 +50,18 @@ void Responder::display(int level) {
 }
 
 string Responder::toString() {
-    return "Responder Name: " + name + ", Team Role: " + roleToString(role);
+    string responder = "Responder Name: " + name + ", Team Role: " + roleToString(role) + ", Capabilities: ";
+    for (Capability capability : capabilities) {
+        responder += capabilityToString(capability) +  " ";
+    }
+    if (!responder.empty() && responder.back() == ' ') responder.pop_back();
+    return responder;
+}
+
+DispatchIterator* Responder::createDispatchIterator(Emergency* emergency) {
+    return new DispatchIterator(this, emergency);
+}
+
+RollCallIterator* Responder::createRollCallIterator() {
+    return new RollCallIterator(this);
 }

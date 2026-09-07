@@ -10,6 +10,7 @@ class DispatchManager {
         ResponseTeam* organisation;
         string location;
         vector<Emergency*> pendingEmergencies;
+        static int emergencyCount;
         bool attemptDispatch(Emergency* emergency, vector<ResponseUnit*>& dispatchedUnits);
     public:
         DispatchManager(ResponseTeam* organisation, string location);

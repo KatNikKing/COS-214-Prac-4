@@ -16,7 +16,7 @@ void Dispatched::performDuty() {
 Operating::Operating(string task) : task(task) {}
 
 void Operating::performDuty() {
-    cout << "responds to emergency. Task: " << task << ".\n";
+    cout << "responds to emergency. Task: " << task << "\n";
 }
 
 Recovering::Recovering(int duration) : duration(duration) {}

@@ -1,6 +1,8 @@
 #include "ResponseUnit.h"
 #include "ResponseTeam.h"
+#include "Responder.h"
 #include "RollCallIterator.h"
+#include "DispatchIterator.h"
 
 ResponseUnit::ResponseUnit(std::string name) : name(name), state(nullptr) {}
 
@@ -13,6 +15,7 @@ std::string ResponseUnit::getName() const {
 }
 
 void ResponseUnit::setState(State* state) {
+    delete this->state;
     this->state = state;
 }
 
@@ -33,7 +36,7 @@ ResponseUnit* ResponseUnit::get(string name) {
 
 void ResponseUnit::performDuty() {
     if (state != nullptr) {
-        cout << ((dynamic_cast<ResponseTeam*>(this) == nullptr) ? "" : "Team ") << name << " ";
+        cout << ((dynamic_cast<ResponseTeam*>(this) == nullptr) ? "Responder '" : "Team '") << name << "' ";
         state->performDuty();
     }
 }

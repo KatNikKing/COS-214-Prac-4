@@ -4,7 +4,14 @@
 #include "State.h"
 #include "Capability.h"
 
+#include <iostream>
+#include <vector>
+
 class Emergency;
+class DispatchIterator;
+class RollCallIterator;
+
+using namespace std;
 
 class ResponseUnit {
 protected:
@@ -23,9 +30,12 @@ public:
     virtual bool canSatisfy(Emergency* emergency) = 0;
     virtual void add(ResponseUnit* unit) {}
     virtual void remove(string name) {}
+    virtual ResponseUnit* remove(ResponseUnit* unit) { return nullptr; }
     ResponseUnit* get(string name);
     virtual void display(int level) = 0;
     virtual string toString() = 0;
+    virtual DispatchIterator* createDispatchIterator(Emergency* emergency) = 0;
+    virtual RollCallIterator* createRollCallIterator() = 0;
 };
 
 #endif

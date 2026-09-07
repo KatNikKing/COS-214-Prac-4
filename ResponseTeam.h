@@ -2,14 +2,12 @@
 #define RESPINSE_TEAM
 
 #include "ResponseUnit.h"
-#include "DispatchIterator.h"
-#include "RollCallIterator.h"
 #include "TeamType.h"
-#include "Capability.h"
+#include "RollCallIterator.h"
+#include "DispatchIterator.h"
 
-#include <vector>
-
-using namespace std;
+class RollCallIterator;
+class DispatchIterator;
 
 class ResponseTeam : public ResponseUnit {
         friend class RollCallIterator;
@@ -30,6 +28,7 @@ class ResponseTeam : public ResponseUnit {
         bool hasCapability(Capability capability, int requiredResponders = 1) override;
         bool canSatisfy(Emergency* emergency) override;
         void add(ResponseUnit* unit) override;
+        ResponseUnit* remove(ResponseUnit* unit);
         void remove(string name) override;
         void display(int level) override;
         string toString() override;

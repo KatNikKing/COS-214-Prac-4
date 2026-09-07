@@ -2,19 +2,14 @@
 #define EMERGENCYINCIDENT_H
 
 #include "Emergency.h"
-#include <string>
-#include <vector>
-
 
 class EmergencyIncident : public Emergency
 {
-    //members
     private:
         std::string location, description;
         int requiredResponders;
         std::vector<Capability> baseCapabilities;
 
-    //methods
     public:
         EmergencyIncident(std::string, std::string, int, std::vector<Capability>);
         ~EmergencyIncident();

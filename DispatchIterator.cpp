@@ -1,8 +1,10 @@
 #include "DispatchIterator.h"
 #include "ResponseTeam.h"
 #include "Responder.h"
+#include "Emergency.h"
 
 DispatchIterator::DispatchIterator(ResponseUnit* organisation, Emergency* emergency) {
+    this->position = 0;
     int required = emergency->getRequiredResponders();
     collectTeams(organisation, emergency);
     if (!toVisit.empty())
