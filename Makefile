@@ -15,11 +15,14 @@ $(TARGET): $(OBJS)
 %.o: %.cpp
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
+clean:
+	rm -f $(OBJS) $(TARGET)
+
 run: $(TARGET)
 	./taskforge
 
-val: $(TARGET)
-	valgrind --leak-check=full --keep-stacktraces=alloc-and-free --track-origins=yes ./taskforge
+gdb: $(TARGET)
+	gdb ./taskforge
 
-clean:
-	rm -f $(OBJS) $(TARGET)
+valgrind: $(TARGET)
+	valgrind --leak-check=full --keep-stacktraces=alloc-and-free --track-origins=yes ./taskforge
