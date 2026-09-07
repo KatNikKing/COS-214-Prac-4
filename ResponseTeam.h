@@ -1,0 +1,39 @@
+#ifndef RESPONSE_TEAM
+#define RESPINSE_TEAM
+
+#include "ResponseUnit.h"
+#include "TeamType.h"
+#include "RollCallIterator.h"
+#include "DispatchIterator.h"
+
+class RollCallIterator;
+class DispatchIterator;
+
+class ResponseTeam : public ResponseUnit {
+        friend class RollCallIterator;
+        friend class DispatchIterator;
+    private:
+        vector<ResponseUnit*> members;
+        TeamType teamType;
+
+    public:
+        ResponseTeam(string name, TeamType teamType);
+        ~ResponseTeam();
+        void setState(State* state) override;
+        void setTeamType(TeamType teamtype);
+        TeamType getTeamType();
+        int getHeadCount();
+        bool isAvailable() override;
+        int countCapability(Capability capability);
+        bool hasCapability(Capability capability, int requiredResponders = 1) override;
+        bool canSatisfy(Emergency* emergency) override;
+        void add(ResponseUnit* unit) override;
+        ResponseUnit* remove(ResponseUnit* unit);
+        void remove(string name) override;
+        void display(int level) override;
+        string toString() override;
+        DispatchIterator* createDispatchIterator(Emergency* emergency);
+        RollCallIterator* createRollCallIterator();
+};
+
+#endif
